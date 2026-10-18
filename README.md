@@ -1,92 +1,78 @@
-# Real-Time Face Detection, Tracking & Auto-Framing
+<div align="center">
+  <img src="assets/project-banner.png" alt="Illustrated banner for the face detection and auto-framing project" width="100%" />
+  <br /><br />
+  <img src="https://img.shields.io/badge/Python-3.9%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.9+" />
+  <img src="https://img.shields.io/badge/OpenCV-4.10-5C3EE8?style=for-the-badge&logo=opencv&logoColor=white" alt="OpenCV 4.10" />
+  <img src="https://img.shields.io/badge/Computer%20Vision-Real%20Time-00A86B?style=for-the-badge" alt="Real-time computer vision" />
+  <br /><br />
+  <b>From webcam capture to face-aware digital framing — four small, runnable Python demos.</b>
+  <br />
+  <sub>Built to learn real-time computer vision step by step.</sub>
+  <br /><br />
+  <a href="#-quick-start">🚀 Quick Start</a> &nbsp;•&nbsp;
+  <a href="#-explore-the-four-demos">🎬 Demos</a> &nbsp;•&nbsp;
+  <a href="#-how-it-works">🧠 How It Works</a> &nbsp;•&nbsp;
+  <a href="#-roadmap">🔭 Roadmap</a>
+</div>
 
-**A Python and OpenCV computer vision project**
+> [!NOTE]
+> The banner is a **concept illustration**, not a screenshot of the program. An actual webcam demonstration can be added below when recorded.
 
-A real-time computer vision prototype that detects faces from a webcam, smooths bounding box movement, and automatically adjusts digital camera framing based on a person's position.
+## ✨ At a glance
 
-The project explores fundamental concepts used in intelligent video conferencing systems, including face detection, temporal smoothing, region-of-interest selection, and camera framing.
+| 🎥 **Live webcam** | 🟩 **Face detection** | 🎯 **Smooth bounding box** | 🔎 **Auto-framing** |
+|:---:|:---:|:---:|:---:|
+| Read frames in real time | Detect frontal faces with Haar Cascade | Reduce frame-to-frame jitter | Adjust a digital crop to follow the main face |
 
-## Project Overview
+## 🎬 Explore the four demos
 
-Modern video collaboration systems use computer vision to enhance meeting experiences by detecting participants and adjusting the camera view.
+Each script runs **independently**. Start with the basic camera and work toward auto-framing.
 
-This project implements a simplified version of these capabilities using Python and OpenCV.
+| Stage | File | What you'll see | Run |
+|:---:|---|---|---|
+| **01** | `camera.py` | Live webcam feed | `python3 camera.py` |
+| **02** | `face_detection.py` | Green boxes around detected faces | `python3 face_detection.py` |
+| **03** | `face_tracking.py` | A less jittery bounding box | `python3 face_tracking.py` |
+| **04** | `auto_framing.py` | Original and digitally reframed webcam views | `python3 auto_framing.py` |
 
-The development follows four incremental stages:
+**📽️ Demo preview (coming soon):** Record a short screen capture of your working webcam and place it at `assets/demo.gif`. Then replace this sentence with `![Live demo](assets/demo.gif)`.
 
-| Module | Description |
-|---|---|
-| `camera.py` | Captures and displays live webcam video |
-| `face_detection.py` | Detects faces and draws bounding boxes |
-| `face_tracking.py` | Reduces bounding box jitter using exponential smoothing |
-| `auto_framing.py` | Dynamically adjusts the displayed video crop based on face position |
+## 🧠 How it works
 
-## Key Features
-
-**1. Real-Time Webcam Capture**
-
-Captures and displays live video frames using OpenCV's `VideoCapture` interface.
-
-**2. Face Detection**
-
-Uses a pretrained Haar Cascade classifier to identify frontal faces in video frames and draw bounding boxes around detected faces.
-
-**3. Smoothed Face Tracking**
-
-Uses exponential smoothing to reduce sudden changes in bounding box position and size.
-
-The smoothed position is calculated as:
-
-`Smoothed = α × Current Detection + (1 − α) × Previous Smoothed Position`
-
-A lower smoothing factor provides steadier movement but increases response delay.
-
-**4. Automatic Camera Framing**
-
-Implements software-based camera framing by:
-
-1. Detecting the largest visible face.
-2. Calculating its center position.
-3. Applying smoothing to camera movement.
-4. Using a dead zone to prevent unnecessary adjustments.
-5. Cropping and resizing the video to follow the person's position.
-
-This simulates camera movement without physically rotating the webcam.
-
-## Technology Stack
-
-| Technology | Purpose |
-|---|---|
-| Python | Main programming language |
-| OpenCV | Video capture, face detection and image processing |
-| Haar Cascade | Pretrained frontal-face detection |
-| Exponential smoothing | Stabilizing face bounding boxes and crop movement |
-| NumPy | Array processing dependency |
-
-## Project Structure
-
-```text
-opencv-face-detection-auto-framing/
-│
-├── camera.py
-├── face_detection.py
-├── face_tracking.py
-├── auto_framing.py
-├── requirements.txt
-├── .gitignore
-└── README.md
+```mermaid
+flowchart LR
+    A[📷 Webcam frame] --> B[Grayscale image]
+    B --> C[Haar Cascade face detector]
+    C --> D[Face bounding box]
+    D --> E[Exponential smoothing]
+    E --> F[Face center]
+    F --> G[Dead-zone camera control]
+    G --> H[Crop and resize]
+    H --> I[🖥️ Auto-framed view]
 ```
 
-## Getting Started
+**Face detection.** A pretrained Haar Cascade classifier locates frontal faces and outputs `(x, y, width, height)` bounding boxes.
 
-**1. Clone the repository**
+**Temporal smoothing.** Rather than drawing every new detection directly, we blend it with the previous displayed box:
+
+```text
+smoothed = alpha × detected + (1 − alpha) × previous_smoothed
+```
+
+Smaller `alpha` values reduce jitter but cause the box to respond more slowly.
+
+**Digital auto-framing.** We find the face center, move the crop center gradually when the face leaves a *dead zone*, then crop and resize the source frame. This **does not physically rotate** the webcam. Reframing is limited by the original image boundaries.
+
+## 🚀 Quick start
+
+**1. Clone**
 
 ```bash
 git clone https://github.com/SaurabRauniyar/opencv-face-detection-auto-framing.git
 cd opencv-face-detection-auto-framing
 ```
 
-**2. Create a virtual environment**
+**2. Create and activate a virtual environment** (macOS / Linux)
 
 ```bash
 python3 -m venv venv
@@ -99,118 +85,72 @@ source venv/bin/activate
 python3 -m pip install -r requirements.txt
 ```
 
-**4. Run the modules**
-
-Basic webcam:
+**4. Choose a demo**
 
 ```bash
 python3 camera.py
-```
-
-Face detection:
-
-```bash
+# or
 python3 face_detection.py
-```
-
-Smoothed face tracking:
-
-```bash
+# or
 python3 face_tracking.py
-```
-
-Automatic framing:
-
-```bash
+# or
 python3 auto_framing.py
 ```
 
-Press **Q** while the OpenCV camera window is active to exit.
+**To close the camera:** Click the OpenCV window and press **Q**. Make sure another app is not occupying your webcam, and grant camera permission when macOS asks.
 
-A working webcam and camera access permission are required.
-
-## Computer Vision Pipeline
+## 📁 Project structure
 
 ```text
-           Webcam Input
-                |
-                v
-         Capture Video Frame
-                |
-                v
-       Convert Frame to Grayscale
-                |
-                v
-       Haar Cascade Face Detection
-                |
-                v
-       Extract Face Bounding Box
-                |
-                v
-        Temporal Smoothing
-                |
-                v
-       Calculate Face Position
-                |
-                v
-       Apply Camera Framing Logic
-                |
-                v
-         Crop and Resize Frame
-                |
-                v
-           Video Output
+opencv-face-detection-auto-framing/
+├── assets/
+│   └── project-banner.png
+├── camera.py
+├── face_detection.py
+├── face_tracking.py
+├── auto_framing.py
+├── requirements.txt
+├── .gitignore
+└── README.md
 ```
 
-This illustrates the combined processing concepts. Each Python file is independently executable.
+## 🛠️ Tools and techniques
 
-## Technical Concepts Explored
+| Tool / concept | Why it's here |
+|---|---|
+| **Python** | Readable, modular implementation |
+| **OpenCV** | Camera I/O, image transforms, detection, drawing, video windows |
+| **Haar Cascade** | Pretrained frontal-face detector |
+| **Exponential smoothing** | Reduce small changes in bounding box location and crop position |
+| **Dead zone** | Avoid moving the output for tiny face movements |
+| **ROI cropping** | Simulate camera panning by selecting a region of the frame |
 
-**Video Processing:** Working with live camera frames and OpenCV image operations.
+## 💡 What I learned
 
-**Object Detection:** Locating frontal faces and obtaining their bounding box coordinates.
+- Reading and displaying live video frame by frame.
+- Detecting faces and interpreting `(x, y, w, h)` coordinates.
+- Balancing **responsiveness vs. stability** with smoothing.
+- Keeping the target near the center using **cropping, interpolation, and dead-zone logic**.
+- Organizing a computer vision prototype into small, independently runnable demos.
 
-**Temporal Smoothing:** Reducing frame-to-frame variations in detected face positions.
+## ⚠️ Limitations
 
-**Region of Interest (ROI):** Selecting and cropping a specific region within an image.
+This is a **learning prototype**, not production-grade camera intelligence. It detects mainly frontal faces; unusual angles, lighting, and occlusion can reduce reliability. "Tracking" currently means **detection plus temporal smoothing**, not persistent identity tracking. Auto-framing follows the **largest detected face**, uses a fixed digital zoom, and cannot see beyond the webcam's original field of view. No identity recognition or active-speaker detection is implemented.
 
-**Camera Framing:** Adjusting the digital camera view based on the detected subject position.
+## 🔭 Roadmap
 
-**Real-Time Processing:** Continuously processing and displaying incoming webcam frames.
+- [ ] Record and embed an actual demonstration GIF.
+- [ ] Add multi-person tracking with persistent IDs.
+- [ ] Explore face landmarks and improved detectors.
+- [ ] Test adaptive zoom and more natural camera transitions.
+- [ ] Benchmark frame rate, latency, and stability.
+- [ ] Explore audio-visual active-speaker framing.
 
-## Current Limitations
+## 👤 Author
 
-This project is an experimental prototype rather than a production-ready intelligent camera system.
+**Saurab Rauniyar**  
+[GitHub @SaurabRauniyar](https://github.com/SaurabRauniyar)
 
-The Haar Cascade classifier may struggle with extreme head angles, occlusion, or challenging lighting.
-
-The tracking implementation uses detection and temporal smoothing rather than a dedicated multi-object tracking algorithm.
-
-Auto-framing uses a fixed zoom factor and digital cropping, so its movement is limited by the original webcam field of view.
-
-The current implementation prioritizes the largest detected face and does not identify individual people or active speakers.
-
-## Future Improvements
-
-Potential extensions include:
-
-1. Multi-face tracking with persistent tracking IDs.
-2. Face landmark detection.
-3. Deep learning-based face detection.
-4. Adaptive zoom based on subject size and movement.
-5. Active-speaker-aware camera selection using audio and visual signals.
-6. Performance benchmarking using frame rate, latency, and tracking stability.
-
-## Project Motivation
-
-I developed this project to strengthen my practical understanding of computer vision and real-time video processing.
-
-My goal was to progress from basic webcam integration to a working face detection and digital auto-framing prototype, while exploring the engineering challenges associated with detection stability, subject movement, and responsive camera behavior.
-
-The project provides a foundation for further experimentation with intelligent video collaboration systems.
-
-## Author
-
-**Saurab Rauniyar**
-
-[GitHub Profile](https://github.com/SaurabRauniyar)
+<div align="center">
+  <sub>Made with Python and OpenCV • Computer vision learning project</sub>
+</div>
