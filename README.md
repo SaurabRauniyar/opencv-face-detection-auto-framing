@@ -137,24 +137,6 @@ I built this project to learn real-time computer vision through small, testable 
 ---
 
 
-<div align="center">
-
-# Real-Time Face Detection, Tracking & Auto-Framing
-
-**A practical computer vision project built with Python and OpenCV**
-
-![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)
-![OpenCV](https://img.shields.io/badge/OpenCV-4.10-5C3EE8?style=flat-square&logo=opencv&logoColor=white)
-
-A webcam-based prototype that detects faces, reduces bounding-box jitter and adjusts digital camera framing.
-
-[Features](#features) · [How it works](#how-it-works) · [Getting started](#getting-started)
-
-</div>
-
----
-
-
 ## Features
 
 | Module | Description |
