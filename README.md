@@ -13,6 +13,8 @@
 
 [Features](#features) · [How it works](#how-it-works) · [Getting started](#getting-started) · [Limitations](#limitations) · [Next steps](#next-steps)
 
+<img src="assets/project-poster.png" alt="Overview poster of the real-time face detection, tracking and auto-framing project" width="800">
+
 </div>
 
 ---
@@ -22,9 +24,9 @@
 | Module | What it demonstrates | Run |
 | :--- | :--- | :--- |
 | 📷 **Webcam capture** | Opens the webcam and displays live frames | `python3 camera.py` |
-| 🟢 **Face detection** | Detects frontal faces and draws green bounding boxes | `python3 face_detection.py` |
-| 🎯 **Smoothed face tracking** | Reduces bounding-box jitter through exponential smoothing | `python3 face_tracking.py` |
-| 🔍 **Automatic framing** | Moves a digital crop toward the detected face with smoothing and a dead zone | `python3 auto_framing.py` |
+|**Face detection** | Detects frontal faces and draws green bounding boxes | `python3 face_detection.py` |
+|**Smoothed face tracking** | Reduces bounding-box jitter through exponential smoothing | `python3 face_tracking.py` |
+|**Automatic framing** | Moves a digital crop toward the detected face with smoothing and a dead zone | `python3 auto_framing.py` |
 
 > **Note:** Each script runs independently. This is a learning prototype, not a production camera system.
 
@@ -95,6 +97,8 @@ opencv-face-detection-auto-framing/
 ├── face_detection.py
 ├── face_tracking.py
 ├── auto_framing.py
+├── assets/
+│   └── project-poster.png
 ├── requirements.txt
 ├── .gitignore
 └── README.md
@@ -132,8 +136,43 @@ I built this project to learn real-time computer vision through small, testable 
 
 ---
 
+
 <div align="center">
 
-**Built by [Saurab Rauniyar](https://github.com/SaurabRauniyar)**
+# Real-Time Face Detection, Tracking & Auto-Framing
+
+**A practical computer vision project built with Python and OpenCV**
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)
+![OpenCV](https://img.shields.io/badge/OpenCV-4.10-5C3EE8?style=flat-square&logo=opencv&logoColor=white)
+
+A webcam-based prototype that detects faces, reduces bounding-box jitter and adjusts digital camera framing.
+
+[Features](#features) · [How it works](#how-it-works) · [Getting started](#getting-started)
 
 </div>
+
+---
+
+<!-- PROJECT IMAGE STARTS HERE -->
+
+<div align="center">
+  <img
+    src="assets/project-poster.png"
+    alt="Face Detection and Auto-Framing Project"
+    width="800"
+  >
+</div>
+
+<!-- PROJECT IMAGE ENDS HERE -->
+
+---
+
+## Features
+
+| Module | Description |
+| :--- | :--- |
+| 📷 Webcam | Captures live video |
+| Face Detection | Draws bounding boxes |
+| Face Tracking | Smooths bounding box movement |
+| Auto-Framing | Adjusts the digital camera view |
