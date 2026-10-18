@@ -154,19 +154,6 @@ A webcam-based prototype that detects faces, reduces bounding-box jitter and adj
 
 ---
 
-<!-- PROJECT IMAGE STARTS HERE -->
-
-<div align="center">
-  <img
-    src="assets/project-poster.png"
-    alt="Face Detection and Auto-Framing Project"
-    width="800"
-  >
-</div>
-
-<!-- PROJECT IMAGE ENDS HERE -->
-
----
 
 ## Features
 
